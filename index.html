@@ -1,0 +1,417 @@
+<!doctype html>
+<html lang="ar" dir="rtl"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1"><meta name="theme-color" content="#10283c"><title>العين السحرية لتحليل الصور</title><style>
+:root{font-family:Tahoma,'Segoe UI',Arial,sans-serif;color:#183047;background:#eef3f7}*{box-sizing:border-box}body{margin:0}button,input,select,textarea{font:inherit}button{cursor:pointer}button:disabled{opacity:.5;cursor:wait}.wrap{max-width:1320px;margin:auto;padding:18px}.hero{background:linear-gradient(120deg,#10273c,#18636a);color:white;border-radius:20px;padding:28px;display:flex;justify-content:space-between;gap:15px;align-items:center;flex-wrap:wrap}.hero h1{font-size:clamp(25px,4vw,39px);margin:0 0 6px}.hero small{color:#cde5e7}.eye{font-size:54px}.panel{background:#fff;border:1px solid #dce5ec;box-shadow:0 3px 14px #19394a09;border-radius:16px;padding:20px;margin-top:16px}.panel h2{display:flex;align-items:center;gap:10px;color:#153d56;font-size:clamp(19px,2.5vw,25px);border-bottom:2px solid #d7ebec;padding-bottom:12px;margin:0 0 15px}.num{display:inline-flex;align-items:center;justify-content:center;color:#fff;background:#163d59;border-radius:9px;width:40px;height:37px;font-size:17px;flex:none}.hint{color:#62788a;font-size:14px}.row{display:flex;gap:12px;flex-wrap:wrap;align-items:center}.row>*{max-width:100%}.grow{flex:1}.btn{border:0;border-radius:9px;padding:11px 16px;background:#167c83;color:#fff;font-weight:700}.btn.secondary{background:#e5eef3;color:#214359}.btn.danger{background:#9d3c45}.btn:hover{filter:brightness(.94)}select,input[type=number],input[type=text],input[type=password],input[type=url]{border:1px solid #bbcdd9;background:white;border-radius:8px;padding:10px;max-width:100%}label{display:inline-flex;align-items:center;gap:6px}.drop{border:2px dashed #94b3c0;border-radius:13px;background:#f6fafc;text-align:center;padding:28px;cursor:pointer}.drop.over{background:#d9eef0;border-color:#187d83}.preview{position:relative;background:#14232d;border-radius:12px;text-align:center;overflow:hidden;min-height:150px;display:flex;align-items:center;justify-content:center}.preview canvas{max-width:100%;height:auto;display:block;cursor:crosshair}.canvasbox{overflow:auto}.status{padding:9px 13px;border-radius:9px;background:#e8f2f5;color:#12536b}.status.warn{background:#fff2de;color:#85530e}.status.err{background:#ffe4e4;color:#a32933}.grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(240px,1fr));gap:14px}.stat{background:#f1f6f8;border-radius:12px;padding:13px}.stat b{display:block;font-size:22px;color:#18485e;margin-top:5px;overflow-wrap:anywhere}.bar{display:flex;overflow:hidden;border-radius:10px;height:35px;margin:15px 0}.bar>span{height:100%}.swatch{width:22px;height:22px;display:inline-block;border:1px solid #aab;vertical-align:middle;border-radius:5px}.scroll{overflow:auto}table{border-collapse:collapse;width:100%;min-width:460px}th,td{padding:10px;text-align:right;border-bottom:1px solid #e0e9ee}th{background:#eaf2f5;color:#1d4b60}tr:nth-child(even){background:#fafcfd}.chart{width:100%;max-width:790px;height:220px;border:1px solid #e0eaee;border-radius:8px}.small{font-size:12px;color:#637e8f}.state{float:left;font-size:13px;color:#698293;font-weight:normal}.stack{display:grid;gap:13px}.settings{display:grid;grid-template-columns:repeat(auto-fit,minmax(200px,1fr));gap:14px}.settings label{display:grid;gap:6px}.checkbox{display:flex!important;align-items:center!important}.imagearea{display:grid;grid-template-columns:minmax(0,2fr) minmax(210px,1fr);gap:14px}.out{white-space:pre-wrap;overflow-wrap:anywhere;line-height:1.9}.anchor{display:flex;gap:8px;flex-wrap:wrap;margin-top:12px}.anchor a{font-size:13px;text-decoration:none;color:#185b70;background:#edf5f6;padding:7px;border-radius:8px}progress{width:100%;height:13px;accent-color:#167c83}.tag{display:inline-block;background:#e5f2f3;border-radius:7px;padding:4px 9px;margin:3px}.footer{text-align:center;color:#6b8090;padding:28px}canvas{direction:ltr}@media(max-width:760px){.imagearea{grid-template-columns:1fr}.wrap{padding:10px}.panel{padding:14px}.hero{padding:18px}}@media print{body{background:#fff}.hero{color:#000;background:none;border:1px solid #bbb}.noprint,.btn,.drop,.anchor{display:none!important}.panel{break-inside:avoid;box-shadow:none}canvas{max-height:300px}}
+
+.subhead{font-size:18px;color:#164865;margin:15px 0 10px;border-right:5px solid #16828a;padding:4px 11px}.errorline{color:#a52c35;font-weight:600}.notice{background:#fff7e5;color:#764f13;padding:12px;border-radius:10px;margin:10px 0}.pill{border-radius:8px;background:#e3f3f2;color:#11525c;padding:3px 8px}.statuslog{font-size:13px;line-height:1.8}
+
+/* Help dialog / attribution — version 1.2 */
+.hero-tools{display:flex;align-items:center;gap:18px;flex-wrap:wrap}
+.help-launch{padding:11px 20px;min-height:45px;border:1px solid #a5e5e5;border-radius:11px;color:#fff;background:#ffffff1b;font-weight:800;letter-spacing:.15px}
+.help-launch:hover,.help-launch:focus-visible{background:#ffffff35;outline:2px solid #abe9e4;outline-offset:2px}
+.help-dialog{width:min(940px,calc(100vw - 24px));max-width:none;max-height:min(92dvh,960px);padding:0;margin:auto;border:0;border-radius:20px;color:#193344;background:#fff;box-shadow:0 26px 90px #081b2799;overflow-y:auto;overscroll-behavior:contain}
+.help-dialog::backdrop{background:rgba(8,22,35,.78);backdrop-filter:blur(3px)}
+.help-top{background:linear-gradient(120deg,#10283d,#17656b);color:#fff;position:sticky;top:0;z-index:2;padding:22px 25px;display:flex;justify-content:space-between;align-items:flex-start;gap:15px;box-shadow:0 3px 12px #142b3c32}
+.help-top h2{font-size:clamp(21px,3.4vw,30px);margin:4px 0 5px;color:#fff}
+.help-top p{margin:0;color:#cde6e9;font-size:13px}
+.help-kicker{font-size:12px;color:#94e4df;font-weight:bold}
+.help-close{flex:none;background:#fff;color:#153f50;border:0;border-radius:9px;padding:11px 15px;font-weight:bold}
+.help-close:hover,.help-close:focus-visible{background:#e2f6f4;outline:2px solid #56dfd3;outline-offset:2px}
+.help-content{padding:4px 25px 25px;line-height:1.95}
+.help-content p{margin:7px 0 13px}
+.help-section{border-bottom:1px solid #e1ebef;padding:14px 0 17px}
+.help-section:last-child{border-bottom:none}
+.help-section h3{font-size:20px;color:#124b63;margin:6px 0 10px;border-right:5px solid #1b8588;padding-right:12px}
+.help-section h4{font-size:16px;color:#135970;margin:8px 0 5px}
+.help-content ul,.help-content ol{padding-right:25px;padding-left:10px;margin:8px 0 12px}
+.help-content li{margin:3px 0}
+.help-cols{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:12px;margin:12px 0}
+.help-card{background:#f2f7f9;border:1px solid #deebee;border-radius:12px;padding:13px 16px}
+.help-card h4{margin:0 0 7px}
+.help-card p{margin:0}
+.help-note{padding:11px 14px;border-radius:10px;background:#ecf7f5;border-right:4px solid #16848b;margin:12px 0}
+.help-warning{padding:11px 14px;border-radius:10px;background:#fff5e4;border-right:4px solid #d7a03b;margin:12px 0}
+.help-foot{padding:20px;background:#eaf4f6;text-align:center;border-top:1px solid #d4e6ec;line-height:1.85}
+.help-foot strong{display:block;font-size:18px;color:#174c63}
+.help-foot a,.credit-footer a{color:#136884;font-weight:700;direction:ltr;display:inline-block;unicode-bidi:isolate;overflow-wrap:anywhere}
+.credit-footer{margin:18px auto 6px;padding:23px 14px;border-top:2px solid #c8dcdf;text-align:center;color:#184359;line-height:1.9}
+.credit-footer strong{display:block;font-size:19px}
+.credit-footer .fineprint{display:block;color:#687d89;font-size:12px;margin-top:7px}
+.help-scroll{overflow-x:auto}
+.help-scroll table{min-width:500px}
+.help-scroll th,.help-scroll td{vertical-align:top}
+@media(max-width:620px){.hero-tools{width:100%;justify-content:space-between}.hero-tools .eye{font-size:32px}.help-top{padding:16px;gap:7px}.help-close{padding:9px;font-size:13px}.help-content{padding:4px 15px 14px}.help-cols{grid-template-columns:1fr}.help-dialog{width:calc(100vw - 12px);max-height:96dvh;border-radius:13px}}
+@media print{.help-dialog{display:none!important}.help-launch{display:none!important}}
+
+/* توضيح مربع السماح بنماذج الذكاء الاصطناعي */
+.consent-option{flex:1 1 100%;width:100%;max-width:none!important;align-items:flex-start!important;gap:13px!important;border:1px solid #b9d9df;border-radius:12px;background:#f0f8f9;padding:15px 17px;line-height:1.85;cursor:pointer}
+.consent-option>input{flex:none;width:21px;height:21px;margin:5px 0 0;accent-color:#167c83;cursor:pointer}
+.consent-copy{display:block;min-width:0;flex:1;color:#24485a}
+.consent-copy>strong{display:block;color:#154558;font-size:16px;margin-bottom:7px}
+.consent-copy>span{display:block;margin:7px 0;font-size:14px}
+.consent-copy>span b{color:#14566c}
+.consent-copy>small{display:block;color:#5e7380;margin-top:8px;font-size:12px}
+.consent-explainer{margin:12px 0;padding:14px 17px;background:#f0f8f9;border:1px solid #cfe4e5;border-radius:12px}
+.consent-explainer p{margin:7px 0}
+.consent-explainer strong{color:#12566a}
+@media(max-width:620px){.consent-option{padding:12px}.consent-copy>strong{font-size:15px}}
+</style></head><body><main class="wrap">
+<header class="hero"><div><h1>◉ العين السحرية لتحليل الصور</h1><div>Magic Eye – Intelligent Image Analyzer (MEIA) · v1.2</div><small>ترى التفاصيل وتحلل ما وراء الصورة</small></div><div class="hero-tools"><button type="button" id="helpOpen" class="help-launch noprint" aria-haspopup="dialog" aria-controls="helpDialog" title="دليل وظائف البرنامج وطريقة تشغيله">الدليل</button><div class="eye" aria-hidden="true">◉</div></div></header>
+<nav class="anchor noprint" id="jump"></nav>
+<section class="panel noprint"><h2>إعدادات المحرك الذكي</h2><div class="row"><label>نمط العمل <select id="mode"><option value="auto">ذكي تلقائي</option><option value="offline">محلي فقط (دون إرسال)</option><option value="online">متقدم عند الاتصال</option></select></label><span id="connection" class="status">جارٍ فحص الاتصال…</span><button class="btn secondary" id="check">فحص الاتصال</button><label class="checkbox consent-option" for="consent"><input type="checkbox" id="consent"><span class="consent-copy"><strong>تفعيل التحليل المتقدم بالذكاء الاصطناعي — أوافق على تنزيل المكتبات والنماذج وتشغيلها محلياً داخل المتصفح.</strong><span><b>✓ عند تفعيل العلامة:</b> يمكن للبرنامج تنزيل نماذج الذكاء الاصطناعي للتعرف على الأشخاص والسيارات والأشياء، وقراءة النصوص والأرقام، وتصنيف الصور. قد يحتاج التنزيل الأول إلى اتصال بالإنترنت ويستهلك جزءاً من ذاكرة الجهاز.</span><span><b>✕ دون تفعيل العلامة:</b> تستمر الوظائف الأساسية مثل تحليل الألوان ونسبها، وتوزيع RGB، والسطوع والتباين والحدة وأبعاد الصورة، لكن وظائف الذكاء الاصطناعي التي تحتاج إلى تنزيل النماذج لن تعمل.</span><small>الموافقة تسمح بالتنزيل والتشغيل لكنها لا تضمن نجاح تحميل النماذج أو دقة التعرف. لاختيار النماذج المتقدمة استخدم «ذكي تلقائي» أو «متقدم عند الاتصال» بدلاً من «محلي فقط».</small></span></label></div><p class="hint">تحليل البكسلات والألوان والجودة يجري داخل جهازك دائماً. قراءة النصوص وكشف الأشياء والتصنيف العام تعمل على جهازك بعد تنزيل النماذج من الإنترنت؛ لا يرفع البرنامج الصورة إلى خادم تحليل. يعتمد تشغيل النماذج المحفوظة دون اتصال على ذاكرة التخزين المؤقت وسياسات المتصفح؛ وعند تعذر تحميل نموذج سيظهر السبب بدلاً من نتيجة وهمية.</p><div class="settings"><label>عدد الألوان الرئيسية <input id="clusters" type="number" min="2" max="20" value="8"></label><label>حد التحليل بالبكسل (البعد الأطول) <select id="res"><option value="700">700 — سريع</option><option selected value="1200">1200 — متوازن</option><option value="2200">2200 — أدق وأبطأ</option></select></label><label>لغات OCR <select id="langs"><option value="ara+fas+eng+fin">العربية + الفارسية + الإنجليزية + الفنلندية</option><option value="ara+eng+fin">العربية + الإنجليزية + الفنلندية</option><option value="ara+fas">العربية + الفارسية</option><option value="fas+eng">الفارسية + الإنجليزية</option><option value="fas">الفارسية (فارسی)</option><option value="ara+eng">العربية + الإنجليزية</option><option value="eng">الإنجليزية</option><option value="ara">العربية</option><option value="fin">الفنلندية</option><option value="fas+ara+eng">الفارسية + العربية + الإنجليزية</option></select></label></div></section>
+<section class="panel"><h2><span class="num">00</span> رفع الصورة ومعاينتها</h2><div class="drop noprint" id="drop">🖼️ <b>اضغط لاختيار صورة، أو اسحب الصورة وأفلتها هنا</b><p class="hint">PNG / JPEG / WebP / GIF / BMP وصيغ أخرى يدعمها المتصفح</p><input id="file" type="file" accept="image/*" hidden></div><div class="imagearea" style="margin-top:15px"><div class="preview canvasbox"><canvas id="preview" width="600" height="190"></canvas></div><aside class="stat"><b style="font-size:17px">حالة التحليل</b><p id="message" class="hint">ارفع صورة للبدء.</p><progress id="progress" max="100" value="0"></progress><div class="row noprint" style="margin-top:15px"><button id="analyze" class="btn" disabled>▶ تحليل الصورة بالكامل (ألوان + نصوص + ذكاء اصطناعي)</button><button id="reset" class="btn secondary">مسح</button></div><p class="small">يمكنك تحديد منطقة على الصورة بالسحب لتحليل ألوانها وحدها. انقر مرتين لإلغاء التحديد.</p><button class="btn secondary noprint" id="area" disabled>تحليل المنطقة المحددة</button><p class="small" id="selection"></p><label class="checkbox noprint"><input type="checkbox" id="showboxes" checked> رسم إطارات العناصر المكتشفة فوق الصورة</label></aside></div></section>
+<section id="colors" class="panel"><h2><span class="num">01</span> تحليل الألوان ونسبها <span class="state" id="s-colors">بانتظار الصورة</span></h2><p class="hint">النسب مستخرجة من تجميع البكسلات في مجموعات لونية؛ المجموع يساوي تقريباً 100% بعد التقريب.</p><div id="colorbar" class="bar"></div><div id="colorsTable" class="scroll">لا توجد نتائج بعد.</div></section>
+<section id="spectrum" class="panel"><h2><span class="num">02</span> الطيف اللوني الرقمي وتوزيع RGB <span class="state" id="s-spectrum">بانتظار الصورة</span></h2><canvas id="hist" class="chart" width="790" height="220"></canvas><p class="hint">هذه مدرجات تكرارية لقنوات الصورة الرقمية RGB، وليست طيفاً فيزيائياً لأطوال موجات الضوء. الألوان تتأثر بالإضاءة والكاميرا والملف اللوني.</p></section>
+<section id="text" class="panel"><h2><span class="num">03</span> النصوص والكلمات المكتشفة <span class="state" id="s-text">غير منفذ بعد</span></h2><p class="hint">تستخدم القراءة محرك Tesseract.js مع دعم العربية والفارسية والإنجليزية والفنلندية. قراءة الخطوط الصغيرة قد تتحسن برفع الدقة أو اختيار لغات أقل. عند فشل تنزيل الملفات جرّب التشغيل عبر localhost.</p><div class="row noprint"><button id="ocr" class="btn secondary" disabled>🔎 قراءة النصوص (OCR)</button><button id="copytext" class="btn secondary" disabled>نسخ النصوص</button></div><div class="scroll" id="ocrTable">لم تُجرَ قراءة النصوص.</div></section>
+<section id="numbers" class="panel"><h2><span class="num">04</span> الأرقام واللغات <span class="state" id="s-numbers">بانتظار OCR</span></h2><div id="numbersOut" class="out">تظهر الأرقام واللغات المحتملة بعد استخراج النصوص.</div></section>
+<section id="people" class="panel"><h2><span class="num">05</span> الأشخاص في الصورة <span class="state" id="s-people">بانتظار النموذج</span></h2><p class="hint">يمكن اكتشاف فئة «شخص» وعدد الصناديق المكتشفة تقريبياً؛ لا نحدد هوية الأشخاص ولا نستنتج الجنس أو العمر الحساس من المظهر.</p><div id="peopleOut" class="out">يتطلب النموذج المتقدم.</div></section>
+<section id="objects" class="panel"><h2><span class="num">06</span> الأشياء والعناصر المكتشفة <span class="state" id="s-objects">بانتظار النموذج</span></h2><div class="row noprint"><button id="detect" class="btn secondary" disabled>🧠 كشف الأشياء وتصنيف الصورة</button><label>حد الثقة <select id="threshold"><option value="0.25">25% — أوسع</option><option selected value="0.35">35% — متوازن</option><option value="0.50">50% — أدق</option><option value="0.70">70% — صارم</option></select></label></div><div id="objectsOut" class="scroll">لتفعيل الكشف، اسمح بتنزيل النماذج واتصل بالإنترنت.</div><p class="hint">يستخدم كشف العناصر نموذج COCO-SSD لفئات محددة؛ ويستخدم التصنيف العام MobileNet لفئات ImageNet. النماذج احتمالية وليست فهماً بشرياً كاملاً، وقد تفوت أشياء أو تعطي أسماء غير دقيقة.</p></section>
+<section id="description" class="panel"><h2><span class="num">07</span> الوصف الذكي للصورة <span class="state" id="s-description">بانتظار الكشف</span></h2><h3 class="subhead">التصنيف العام للصورة (MobileNet)</h3><div class="scroll" id="classOut">بانتظار التحليل.</div><h3 class="subhead">الوصف من نتائج الكشف والتصنيف</h3><div id="descOut" class="out">يُنشأ وصف مبسط اعتماداً على العناصر المكتشفة. هذا وصف مبني على نتائج نموذج كشف العناصر ومصنّف الصورة، وليس وصفاً لغوياً حراً أو إثباتاً لمحتوى الصورة.</div></section>
+<section id="geometry" class="panel"><h2><span class="num">08</span> التحليل الهندسي <span class="state" id="s-geometry">بانتظار الصورة</span></h2><div id="geometryOut"></div><p class="hint">المسافات هي بالبكسل ما لم تزودنا الصورة بمقياس مرجعي؛ لا يمكن استنتاج الطول الحقيقي من صورة عادية وحدها.</p></section>
+<section id="quality" class="panel"><h2><span class="num">09</span> جودة الصورة <span class="state" id="s-quality">بانتظار الصورة</span></h2><div id="qualityOut" class="grid"></div><p class="hint">مؤشرات التباين والحدة والسطوع وصفية وليست حكماً قطعياً على جودة الصورة أو الضوضاء الفعلية.</p></section>
+<section id="metadata" class="panel"><h2><span class="num">10</span> معلومات الصورة <span class="state" id="s-metadata">بانتظار الصورة</span></h2><div id="metaOut" class="scroll"></div></section>
+<section id="report" class="panel"><h2><span class="num">11</span> التقرير النهائي <span class="state">الملخص والتصدير</span></h2><div class="row noprint"><button class="btn" id="print">🖨️ طباعة / PDF</button><button class="btn secondary" id="json">⬇ JSON</button><button class="btn secondary" id="csv">⬇ CSV للألوان</button><button class="btn secondary" id="copy">نسخ التقرير</button></div><div id="reportOut" class="out">سيظهر تقرير موجز بعد التحليل.</div></section>
+<footer class="credit-footer"><strong>تصميم المهندس جلال البدري</strong><div>عنوان التواصل: <a href="mailto:jalal.al.badri26@gmail.com" dir="ltr">jalal.al.badri26@gmail.com</a></div><span class="fineprint">العين السحرية لتحليل الصور — تحليل محلي مع نماذج اختيارية؛ النتائج التقديرية ليست بديلاً عن التحقق البشري.</span></footer></main>
+
+<dialog id="helpDialog" class="help-dialog noprint" aria-labelledby="helpTitle" aria-describedby="helpIntro">
+  <header class="help-top">
+    <div><span class="help-kicker">دليل التشغيل والاستخدام والإمكانات</span><h2 id="helpTitle">الدليل — العين السحرية لتحليل الصور</h2><p>Magic Eye – Intelligent Image Analyzer · v1.3</p></div>
+    <button type="button" id="helpClose" class="help-close" aria-label="إغلاق نافذة المساعدة">✕ إغلاق</button>
+  </header>
+  <div class="help-content">
+    <section class="help-section">
+      <h3>1. ما هي العين السحرية، وماذا تعمل؟</h3>
+      <p id="helpIntro"><strong>العين السحرية لتحليل الصور</strong> برنامج يعمل بواجهة HTML وJavaScript داخل متصفح الكمبيوتر أو الهاتف. يستقبل صورة من جهازك ويحوّل محتواها إلى بيانات قابلة للقراءة: جداول للألوان ونِسَبها، رسوم رقمية، نصوص وأرقام، وعناصر قد تتعرف عليها نماذج الرؤية الحاسوبية.</p>
+      <p>يجمع البرنامج بين <strong>الحساب المباشر للبكسلات</strong> (يمكن تنفيذه محلياً) و<strong>نماذج ذكاء اصطناعي اختيارية</strong> للتعرف على النصوص وبعض الأشياء. جميع النتائج معروضة تحت عناوين واضحة في صفحة واحدة، ويمكن طباعة التقرير أو حفظ بياناته.</p>
+      <div class="help-cols">
+        <div class="help-card"><h4>🎨 تحليل الألوان والصورة</h4><p>اختيار الألوان الأكثر انتشاراً، عرض الاسم التقريبي ورمز HEX والنسبة، توزيع قنوات RGB، والسطوع والتباين ومؤشر الحدة.</p></div>
+        <div class="help-card"><h4>🔤 قراءة النصوص والأرقام</h4><p>محرك OCR للكتابة العربية والفارسية والإنجليزية والفنلندية وفق اللغات المختارة. يعرض الكلمات والأرقام واللغة المحتملة، وقد يحتاج النص إلى تصحيح يدوي.</p></div>
+        <div class="help-card"><h4>🚗 التعرف على الأشياء والأشخاص</h4><p>نموذج COCO-SSD يكتشف أصنافاً محدودة مثل الشخص والسيارة والحيوان، ويعرض الصناديق والعدد التقريبي ودرجة الثقة.</p></div>
+        <div class="help-card"><h4>🧠 التصنيف والوصف</h4><p>نموذج MobileNet يعطي فئات محتملة للصورة، ثم ينشئ البرنامج وصفاً موجزاً من نتائج التصنيف والكشف؛ ليس فهماً شاملاً لكل مشهد.</p></div>
+      </div>
+    </section>
+    <section class="help-section">
+      <h3>2. طريقة تشغيل البرنامج خطوة بخطوة</h3>
+      <ol>
+        <li>افتح ملف البرنامج باستخدام متصفح حديث مثل <strong>Chrome أو Edge</strong> على الكمبيوتر أو الهاتف.</li>
+        <li>في «نمط العمل»، اختر <strong>ذكي تلقائي</strong>، أو «محلي فقط» لمنع تشغيل النماذج التي تحتاج إلى التنزيل، أو «متقدم عند الاتصال» لتفعيلها عند توفر الموارد.</li>
+        <li>إذا أردت قراءة النصوص واكتشاف الأشياء، فعِّل خانة <strong>الموافقة على تنزيل وتشغيل النماذج</strong>. أول تحميل قد يحتاج إلى إنترنت جيد ووقت وذاكرة.</li>
+        <li>اختر عدد الألوان ودقة التحليل ولغات OCR. يفضّل اختيار لغة أو لغات النص الموجودة فعلياً لتحسين القراءة.</li>
+        <li>ارفع الصورة من جهازك بالسحب والإفلات أو باختيار الملف، ثم اضغط <strong>«تحليل الصورة بالكامل»</strong>.</li>
+        <li>اقرأ النتائج بالترتيب: الألوان والطيف، النصوص، الأرقام واللغات، الأشخاص، الأشياء، الوصف، الهندسة، الجودة، معلومات الصورة والتقرير.</li>
+        <li>يمكنك سحب المؤشر فوق جزء من معاينة الصورة ثم الضغط على <strong>«تحليل المنطقة المحددة»</strong> لحساب ألوان تلك المنطقة؛ والنقر مرتين يلغي التحديد.</li>
+        <li>استخدم أزرار <strong>النسخ، JSON، CSV، أو الطباعة / PDF</strong> لحفظ النتائج. وللتأكد من كلمات معينة راجع الصورة الأصلية بنفسك.</li>
+      </ol>
+      <div class="consent-explainer"><h4>ماذا تعني علامة الموافقة على نماذج الذكاء الاصطناعي؟</h4><p><strong>✓ عند تفعيل العلامة:</strong> يستطيع البرنامج تنزيل نماذج الذكاء الاصطناعي للتعرف على الأشخاص والسيارات والأشياء، وقراءة النصوص والأرقام من الصور باستخدام OCR، وتصنيف الصور. إذا لم تكن النماذج محفوظة سابقاً، يلزم الاتصال بالإنترنت لتنزيلها.</p><p><strong>✕ دون تفعيل العلامة:</strong> تعمل الوظائف الأساسية مثل تحليل الألوان ونسبها والسطوع والتباين والحدة وأبعاد الصورة، لكن وظائف الذكاء الاصطناعي التي تتطلب تنزيل النماذج لن تعمل.</p><p><strong>تنبيه:</strong> تفعيل العلامة يمنح الإذن فقط، ولا يضمن نجاح التنزيل أو التعرف. نمط «محلي فقط» يمنع تنزيل نماذج جديدة حتى عند تفعيل الموافقة. وقد تعمل بعض النماذج المحمَّلة سابقاً دون اتصال إذا بقيت ملفاتها متاحة في ذاكرة المتصفح المؤقتة.</p></div>
+      <div class="help-note"><strong>ملاحظة:</strong> الفشل في تنزيل نموذج واحد لا يُلغي نتائج الألوان المحلية. ستظهر حالة كل قسم ورسالة الخطأ عند تعذر تحميل المكتبات أو ملفات اللغات.</div>
+    </section>
+    <section class="help-section">
+      <h3>3. الإمكانات عند وجود الإنترنت وعند انقطاعه</h3>
+      <div class="help-scroll"><table><thead><tr><th>الوظيفة</th><th>دون إنترنت</th><th>مع الإنترنت</th></tr></thead><tbody>
+        <tr><td>فتح الصورة والقياسات اللونية</td><td>متاحة محلياً بعد فتح التطبيق</td><td>متاحة محلياً أيضاً</td></tr>
+        <tr><td>نسب الألوان، RGB، الجودة، البيانات</td><td>تعمل دون خدمة خارجية</td><td>تعمل دون رفع الصورة</td></tr>
+        <tr><td>قراءة العربية والفارسية وبقية اللغات</td><td>قد تعمل فقط إذا توفرت المكتبة وملفات اللغات في ذاكرة المتصفح المؤقتة</td><td>يمكن تنزيل OCR وملفات اللغات وتشغيلها داخل المتصفح</td></tr>
+        <tr><td>كشف الأشخاص والسيارات والأشياء</td><td>حسب توفر النموذج والمكتبات المخزنة مسبقاً؛ غير مضمون</td><td>يمكن تنزيل COCO-SSD وتشغيله محلياً</td></tr>
+        <tr><td>التصنيف العام والوصف المبسط</td><td>حسب توفر MobileNet المحفوظ؛ غير مضمون</td><td>يمكن تنزيل MobileNet وتشغيل التصنيف</td></tr>
+        <tr><td>الحفظ والطباعة</td><td>المتصفح يسمح بحفظ الملفات والتقارير محلياً</td><td>نفس الوظائف</td></tr>
+      </tbody></table></div>
+      <div class="help-warning"><strong>مهم جداً:</strong> هذه النسخة لا تستخدم خادماً سحابياً لفهم الصورة ولا ترسل الصورة إلى خدمة تحليل خارجية. الاتصال بالإنترنت يتيح أساساً <strong>تنزيل نماذج تعمل داخل المتصفح</strong>، ولا يعني الحصول على نموذج لغوي بصري غير محدود الإمكانات. كما أن نجاح التشغيل دون إنترنت يعتمد على وجود الموارد في الذاكرة المؤقتة، وليس مضموناً بمجرد استعمال البرنامج مرة واحدة.</div>
+    </section>
+    <section class="help-section">
+      <h3>4. ماذا نعني بتحليل الصورة؟</h3>
+      <p>الصورة الرقمية شبكة من البكسلات؛ كل بكسل يحوي قيماً لونية. <strong>التحليل الرقمي</strong> يحسب الخصائص القابلة للقياس منها، بينما <strong>تحليل الذكاء الاصطناعي</strong> يتنبأ بما قد تمثّله مجموعات البكسلات مثل نص أو سيارة أو إنسان.</p>
+      <ul>
+        <li><strong>النسبة اللونية:</strong> جزء البكسلات المنسوب إلى مجموعة لون مقسوماً على عدد البكسلات المختبرة × 100. المجموعات تقريبية وتتغير بتغيير عدد الألوان وطريقة التجميع.</li>
+        <li><strong>الطيف الرقمي RGB:</strong> توزيع مستويات الأحمر والأخضر والأزرق، وليس قياس الطيف الفيزيائي للضوء أو الأطوال الموجية.</li>
+        <li><strong>OCR:</strong> التعرف البصري على الحروف والأرقام من الصورة، لا يعني بالضرورة صحة القراءة أو صحة تحديد اللغة من كلمة قصيرة.</li>
+        <li><strong>كشف العناصر:</strong> تحديد نوع الشيء وموقع مستطيل يحيط به وعدّ الاكتشافات، وليس إثبات العدد الحقيقي عند ازدحام الصورة أو ضعف الإضاءة.</li>
+        <li><strong>درجة الثقة:</strong> تقدير ينتجه النموذج لا ضمان للصحة؛ تصنيف النموذج ووصفه قد يكونان خاطئين.</li>
+        <li><strong>الهندسة:</strong> عرض الأبعاد بالبكسل ونسبة العرض إلى الارتفاع؛ قياس الأبعاد الحقيقية يحتاج إلى مرجع معايرة معلوم.</li>
+      </ul>
+    </section>
+    <section class="help-section">
+      <h3>5. قراءة لوحات أرقام السيارات — مثال عملي مهم</h3>
+      <p>يمكن تطبيق تقنية العين السحرية ضمن نظام <strong>التعرف البصري على لوحات المركبات (ANPR / ALPR)</strong>. في مثل هذا النظام تُؤخذ الصورة من كاميرا، ويُحدد موضع المركبة، ثم يُكتشف مستطيل اللوحة ويُصحح ميله وإضاءته، وبعدها يقرأ OCR الحروف والأرقام وتُعرض النتيجة مع درجة ثقة للمراجعة.</p>
+      <ol>
+        <li>التقاط صورة واضحة للسيارة واللوحة.</li>
+        <li>تحديد منطقة اللوحة بنموذج متخصص أو يدوياً ثم تكبيرها وتحسينها.</li>
+        <li>استخراج الحروف والأرقام، بما فيها العربية أو الفارسية أو اللاتينية إذا كانت نماذج اللغة مناسبة.</li>
+        <li>التحقق من تنسيق اللوحة بحسب البلد ثم تسجيل القراءة أو البحث عنها في نظام مصرح له.</li>
+      </ol>
+      <div class="help-warning"><strong>حدود النسخة الحالية:</strong> OCR قد يقرأ أرقاماً ظاهرة داخل صورة، لكن البرنامج <strong>لا يحتوي حالياً على نموذج متخصص لاكتشاف لوحات السيارات أو نظام ANPR مستمر</strong>، ولا يتصل بقواعد بيانات المركبات أو يعين مالك السيارة. يتطلب ذلك تطويراً واختباراً إضافياً والتزاماً بالقوانين والخصوصية.</div>
+    </section>
+    <section class="help-section">
+      <h3>6. ماذا لو ربطنا العين السحرية بكاميرا؟</h3>
+      <p>يمكن في تطوير لاحق إضافة زر «تشغيل الكاميرا» باستخدام واجهات المتصفح المصرح بها لالتقاط الصور أو تحليل لقطات على فترات. عندها يمكن بناء تطبيقات متخصصة مثل:</p>
+      <ul>
+        <li><strong>إحصاء الأشياء:</strong> عدّ الصناديق والمنتجات والسيارات أو الأشخاص المرصودين ضمن منطقة تصوير محددة.</li>
+        <li><strong>المصانع:</strong> متابعة تكدس المواد على السيور، وعدّ القطع، وإجراء فحص بصري أولي للعيوب باستخدام نماذج مدربة للمنتج.</li>
+        <li><strong>المخازن:</strong> قراءة رموز الشحن والملصقات والأرقام التسلسلية ورصد النواقص المرئية.</li>
+        <li><strong>حركة المركبات:</strong> عدّ السيارات العابرة وتتبع الاتجاهات بشكل إجمالي، مع تجنب جمع البيانات التعريفية بلا مسوغ.</li>
+        <li><strong>الوثائق والكتب:</strong> تحويل الصفحات المصورة إلى نص قابل للبحث والفهرسة.</li>
+        <li><strong>التعليم والبحث العلمي:</strong> مقارنة اللون والتباين والموضع بين صور مختلفة وتوثيق النتائج إحصائياً.</li>
+      </ul>
+      <div class="help-note"><strong>وظائف مستقبلية وليست موجودة حالياً:</strong> البث المباشر من الكاميرا، تتبع الأجسام بين الإطارات، قراءة اللوحات تلقائياً في الزمن الحقيقي، قواعد البيانات والتنبيهات الآلية. النسخة الحالية تحلل الصور التي تُرفع إليها يدوياً، لا الفيديو المباشر.</div>
+    </section>
+    <section class="help-section">
+      <h3>7. الدقة والخصوصية وأفضل شروط النتائج</h3>
+      <ul>
+        <li>استخدم صوراً واضحة ومضيئة، وقرّب النص أو اللوحة ما أمكن؛ النص البعيد أو المشوش قد لا يُقرأ جيداً.</li>
+        <li>اختَر اللغات الضرورية فقط. تتشابه بعض كلمات العربية والفارسية؛ قد يضع البرنامج التصنيف «غير محسوم» وهو أكثر أمانة من التخمين.</li>
+        <li>لا تعتبر عدم العثور على عنصر دليلاً على عدم وجوده: النماذج تتعرف على فئات محدودة وقد تفشل مع الصور الصعبة.</li>
+        <li>لا يستنتج البرنامج هوية الناس أو جنسهم من المظهر؛ لا يُستخدم وحده لاتخاذ قرار أمني أو قانوني.</li>
+        <li>الموافقة الحالية تسمح بتنزيل المكتبات والنماذج إلى جهازك؛ الصور تُعالَج محلياً في هذه النسخة. لا تضف خدمة رفع خارجية لاحقاً دون موافقة مستقلة واضحة.</li>
+        <li>قد تختلف سرعة البرنامج حسب ذاكرة الجهاز والاتصال وحجم الصورة؛ وتوفر النماذج دون شبكة يعتمد على سياسة ذاكرة التخزين المؤقت للمتصفح.</li>
+      </ul>
+      <p>لأغراض المراقبة وقراءة اللوحات، تحقّق من قواعد حماية البيانات والتصوير والتسجيل في البلد المعني، وحدد مدة الاحتفاظ والتصاريح اللازمة.</p>
+    </section>
+    <section class="help-section">
+      <h3>8. تطويرات يمكن إضافتها للمشروع</h3>
+      <p>من الممكن في إصدارات لاحقة إضافة تصوير مباشر، وتقسيم الصورة بدقة على مستوى كل بكسل، والتعرف المتخصص على لوحات المركبات، وقراءة الباركود وQR، وفصل كل جسم لتحليل لونه بشكل مستقل، والمقارنة بين صورتين، واستخراج محتوى المخططات، ودعم نماذج متعددة حسب نوع العمل، وإصدار تقارير هندسية أكثر تفصيلاً.</p>
+      <p>يفضّل التحقق من أداء كل وظيفة على مجموعة صور اختبار معلومة النتائج قبل استخدامها في التطبيقات الصناعية أو المرورية.</p>
+    </section>
+  </div>
+  <footer class="help-foot"><strong>تصميم المهندس جلال البدري</strong><div>عنوان التواصل: <a href="mailto:jalal.al.badri26@gmail.com" dir="ltr">jalal.al.badri26@gmail.com</a></div></footer>
+</dialog>
+
+<script>
+'use strict';const $=id=>document.getElementById(id),data={file:null,img:null,colors:[],hist:null,quality:null,geometry:null,ocr:null,objects:null,description:null,online:false,box:null,sourceCanvas:null};
+const esc=s=>String(s??'').replace(/[&<>"']/g,ch=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[ch]));const state=(id,t)=>$('s-'+id).textContent=t;const msg=(t,v=0)=>{$('message').textContent=t;$('progress').value=v};const sleep=()=>new Promise(r=>setTimeout(r,25));
+function tab(head,rows){return '<table><thead><tr>'+head.map(x=>'<th>'+esc(x)+'</th>').join('')+'</tr></thead><tbody>'+rows.map(a=>'<tr>'+a.map(x=>'<td>'+x+'</td>').join('')+'</tr>').join('')+'</tbody></table>'}
+function canvasFromImage(img,max){let w=img.naturalWidth,h=img.naturalHeight,k=Math.min(1,max/Math.max(w,h));let c=document.createElement('canvas');c.width=Math.max(1,Math.round(w*k));c.height=Math.max(1,Math.round(h*k));let ctx=c.getContext('2d',{willReadFrequently:true});ctx.drawImage(img,0,0,c.width,c.height);return c}
+function drawPreview(){let c=$('preview');if(!data.img){c.width=600;c.height=190;c.getContext('2d').clearRect(0,0,600,190);return}let src=data.sourceCanvas;c.width=src.width;c.height=src.height;let ctx=c.getContext('2d');ctx.drawImage(src,0,0);if(data.objects&&$('showboxes')?.checked){ctx.font=Math.max(12,Math.round(c.width/75))+'px sans-serif';ctx.textBaseline='top';data.objects.slice(0,70).forEach(z=>{let b=z.box;if(!b)return;let x=b.xmin,y=b.ymin,w=b.xmax-b.xmin,h=b.ymax-b.ymin;ctx.strokeStyle='#04e6cd';ctx.lineWidth=Math.max(2,c.width/450);ctx.strokeRect(x,y,w,h);let t=(clsArabic[z.label.replaceAll(' ','_')]||z.label)+' '+Math.round(z.score*100)+'%';let tw=ctx.measureText(t).width;ctx.fillStyle='rgba(5,37,49,0.88)';ctx.fillRect(x,Math.max(0,y-22),tw+9,22);ctx.fillStyle='#fff';ctx.fillText(t,x+4,Math.max(0,y-22)+2)})}if(data.box){let b=data.box;ctx.strokeStyle='#ffdc49';ctx.lineWidth=Math.max(2,c.width/400);ctx.setLineDash([12,7]);ctx.strokeRect(b.x,b.y,b.w,b.h);ctx.setLineDash([])}}
+$('drop').onclick=()=>$('file').click();$('file').onchange=e=>loadFile(e.target.files[0]);for(let event of ['dragenter','dragover'])$('drop').addEventListener(event,e=>{e.preventDefault();$('drop').classList.add('over')});for(let event of ['dragleave','drop'])$('drop').addEventListener(event,e=>{e.preventDefault();$('drop').classList.remove('over')});$('drop').addEventListener('drop',e=>loadFile(e.dataTransfer.files[0]));
+async function loadFile(f){if(!f)return;if(!f.type.startsWith('image/')){msg('الملف ليس صورة مدعومة');return}data.file=f;data.colors=[];data.hist=null;data.quality=null;data.geometry=null;data.ocr=null;data.objects=null;data.description=null;data.classification=null;data.numbers=null;data.box=null;resetAIPanels();resetLocalPanels();let url=URL.createObjectURL(f);try{let im=new Image();im.src=url;await im.decode();data.img=im;data.sourceCanvas=canvasFromImage(im,Number($('res').value));drawPreview();$('analyze').disabled=false;$('area').disabled=true;$('ocr').disabled=false;$('detect').disabled=false;msg('تم تحميل '+f.name+' — جاهزة للتحليل',0);$('metaOut').innerHTML=tab(['الخاصية','القيمة'],[['اسم الملف',esc(f.name)],['النوع',esc(f.type)],['الأبعاد',im.naturalWidth+' × '+im.naturalHeight],['الحجم',(f.size/1024/1024).toFixed(3)+' MB'],['تاريخ تعديل الملف',new Date(f.lastModified).toLocaleString('ar')]].map(a=>a));state('metadata','تم');$('reportOut').textContent='الصورة جاهزة. اضغط بدء التحليل.';}catch(e){msg('تعذّر فتح الصورة: '+e.message)}finally{URL.revokeObjectURL(url)}}
+let drag=null;function pointerCoords(e){let rect=$('preview').getBoundingClientRect();return{x:Math.max(0,Math.min($('preview').width,(e.clientX-rect.left)*$('preview').width/rect.width)),y:Math.max(0,Math.min($('preview').height,(e.clientY-rect.top)*$('preview').height/rect.height))}}$('preview').addEventListener('pointerdown',e=>{if(!data.img)return;drag=pointerCoords(e);$('preview').setPointerCapture(e.pointerId)});$('preview').addEventListener('pointerup',e=>{if(!drag)return;let p=pointerCoords(e);let x=Math.min(p.x,drag.x),y=Math.min(p.y,drag.y),w=Math.abs(p.x-drag.x),h=Math.abs(p.y-drag.y);data.box=w>5&&h>5?{x,y,w,h}:null;drag=null;drawPreview();$('area').disabled=!data.box;$('selection').textContent=data.box?'المساحة المحددة: '+Math.round(w)+' × '+Math.round(h)+' بكسل':''});$('preview').ondblclick=()=>{data.box=null;drawPreview();$('area').disabled=true;$('selection').textContent=''};
+function getPixels(area=false){let c=data.sourceCanvas;if(!c)throw Error('لا توجد صورة');let g=c.getContext('2d',{willReadFrequently:true});if(area&&data.box){let b=data.box,x=Math.floor(b.x),y=Math.floor(b.y),w=Math.max(1,Math.min(c.width-x,Math.round(b.w))),h=Math.max(1,Math.min(c.height-y,Math.round(b.h)));return{image:g.getImageData(x,y,w,h),w,h}}return{image:g.getImageData(0,0,c.width,c.height),w:c.width,h:c.height}}
+const dist=(a,b)=>{let dr=a[0]-b[0],dg=a[1]-b[1],db=a[2]-b[2];return dr*dr+dg*dg+db*db};const hex=a=>'#'+a.map(z=>Math.min(255,Math.max(0,Math.round(z))).toString(16).padStart(2,'0')).join('').toUpperCase();
+function colorName(rgb){let[r,g,b]=rgb;let max=Math.max(r,g,b),min=Math.min(r,g,b),d=max-min;if(max<42)return 'أسود / شديد الداكنية';if(min>225&&d<27)return 'أبيض';if(d<20)return max>175?'رمادي فاتح':max>90?'رمادي':'رمادي داكن';let h=0;if(max===r)h=((g-b)/d+6)%6;else if(max===g)h=(b-r)/d+2;else h=(r-g)/d+4;h*=60;if(h<15||h>=345)return 'أحمر';if(h<45)return 'برتقالي';if(h<72)return 'أصفر';if(h<165)return 'أخضر';if(h<200)return 'فيروزي';if(h<255)return 'أزرق';if(h<290)return 'بنفسجي';return 'وردي / أرجواني'}
+function colorsAndStats(pix,k){let p=pix.image.data,step=Math.max(1,Math.floor((p.length/4)/85000));let points=[],hist=[new Uint32Array(256),new Uint32Array(256),new Uint32Array(256)];let sum=0,sum2=0,dark=0,bright=0,sat=0;for(let j=0;j<p.length;j+=4*step){let a=p[j+3]/255,r=Math.round(p[j]*a+255*(1-a)),g=Math.round(p[j+1]*a+255*(1-a)),b=Math.round(p[j+2]*a+255*(1-a));points.push([r,g,b]);hist[0][r]++;hist[1][g]++;hist[2][b]++;let l=.2126*r+.7152*g+.0722*b;sum+=l;sum2+=l*l;if(l<52)dark++;if(l>215)bright++;sat+=Math.max(r,g,b)-Math.min(r,g,b)}let n=points.length;let means=Array.from({length:k},(_,j)=>points[Math.floor((j+.5)*n/k)]?.slice()||[0,0,0]);let groups=new Uint32Array(k);for(let iteration=0;iteration<12;iteration++){let buckets=Array.from({length:k},()=>[0,0,0,0]);for(let p of points){let idx=0,best=Infinity;for(let z=0;z<k;z++){let v=dist(p,means[z]);if(v<best){best=v;idx=z}}let b=buckets[idx];b[0]+=p[0];b[1]+=p[1];b[2]+=p[2];b[3]++}for(let z=0;z<k;z++)if(buckets[z][3])means[z]=buckets[z].slice(0,3).map(v=>v/buckets[z][3])}groups.fill(0);for(let p of points){let idx=0,best=Infinity;for(let z=0;z<k;z++){let v=dist(p,means[z]);if(v<best){best=v;idx=z}}groups[idx]++}let colors=means.map((c,i)=>({rgb:c,hex:hex(c),name:colorName(c),count:groups[i],percent:groups[i]*100/n})).sort((a,b)=>b.count-a.count);let lum=sum/n,stdev=Math.sqrt(Math.max(0,sum2/n-lum*lum));return{colors,hist:hist.map(a=>Array.from(a)),stats:{brightness:lum,contrast:stdev,dark:dark*100/n,bright:bright*100/n,saturation:sat/n},points:n}}
+function drawHistogram(hist){let canvas=$('hist'),ctx=canvas.getContext('2d');ctx.clearRect(0,0,canvas.width,canvas.height);ctx.fillStyle='#fafcfd';ctx.fillRect(0,0,canvas.width,canvas.height);let top=Math.max(...hist.flat())||1;ctx.strokeStyle='#dce6ee';for(let y=0;y<=4;y++){ctx.beginPath();ctx.moveTo(30,10+y*47);ctx.lineTo(780,10+y*47);ctx.stroke()}['#dc4444','#3f985a','#3c6fd0'].forEach((color,i)=>{ctx.strokeStyle=color;ctx.lineWidth=1.5;ctx.beginPath();for(let j=0;j<256;j++){let x=30+j*740/255,y=204-hist[i][j]/top*190;j?ctx.lineTo(x,y):ctx.moveTo(x,y)}ctx.stroke()});ctx.fillStyle='#345';ctx.font='12px sans-serif';ctx.fillText('0',30,217);ctx.fillText('128',395,217);ctx.fillText('255',758,217)}
+function estimateSharpness(pix){let{data:p}=pix.image,{w,h}=pix;if(w<4||h<4)return 0;let step=Math.max(1,Math.floor(Math.sqrt(w*h/35000))),sm=0,sm2=0,n=0;function gray(idx){return .299*p[idx]+.587*p[idx+1]+.114*p[idx+2]}for(let y=1;y<h-1;y+=step)for(let x=1;x<w-1;x+=step){let j=(y*w+x)*4,v=4*gray(j)-gray(j-4)-gray(j+4)-gray(j-w*4)-gray(j+w*4);sm+=v;sm2+=v*v;n++}return Math.max(0,sm2/n-(sm/n)**2)}
+function showColors(out){data.colors=out.colors;data.hist=out.hist;data.quality={...out.stats,sharpness:estimateSharpness(getPixels())};$('colorbar').innerHTML=out.colors.map(c=>'<span title="'+c.hex+'" style="background:'+c.hex+';width:'+c.percent+'%"></span>').join('');$('colorsTable').innerHTML=tab(['اللون','الاسم التقريبي','رمز HEX','النسبة'],out.colors.map(c=>['<span class="swatch" style="background:'+c.hex+'"></span>',esc(c.name),'<code>'+c.hex+'</code>',c.percent.toFixed(2)+'%']));drawHistogram(out.hist);state('colors','تم حساب '+out.points.toLocaleString('ar')+' عينة');state('spectrum','تم');$('qualityOut').innerHTML=Object.entries({السطوع:data.quality.brightness.toFixed(1)+' / 255', 'تباين الإضاءة':data.quality.contrast.toFixed(1),'البكسلات الداكنة':data.quality.dark.toFixed(1)+'%','البكسلات الساطعة':data.quality.bright.toFixed(1)+'%','متوسط تباين القنوات':data.quality.saturation.toFixed(1),'مؤشر الحدة التقريبي':data.quality.sharpness.toFixed(1)}).map(([k,v])=>'<div class="stat">'+esc(k)+'<b>'+esc(v)+'</b></div>').join('');state('quality','تم')} 
+function geometry(){let w=data.img.naturalWidth,h=data.img.naturalHeight;data.geometry={width:w,height:h,aspect:w/h,megapixels:w*h/1e6};$('geometryOut').innerHTML='<div class="grid">'+[['العرض',w+' px'],['الارتفاع',h+' px'],['نسبة الأبعاد',(w/h).toFixed(3)+' : 1'],['الدقة',(w*h/1e6).toFixed(3)+' MP']].map(([k,v])=>'<div class="stat">'+k+'<b>'+v+'</b></div>').join('')+'</div>';state('geometry','تم')}
+async function run(area=false){if(!data.img)return;let b=area?$('area'):$('analyze');b.disabled=true;try{msg('تحليل ألوان البكسلات…',10);await sleep();let p=getPixels(area),k=Math.min(20,Math.max(2,parseInt($('clusters').value)||8));let out=colorsAndStats(p,k);msg('عرض المخططات والمؤشرات…',70);await sleep();showColors(out);geometry();if(area)state('colors','تم تحليل المنطقة المحددة');msg('اكتمل التحليل المحلي. يمكن تشغيل أدوات الذكاء الاصطناعي بشكل منفصل.',100);updateReport()}catch(e){msg('خطأ أثناء التحليل: '+e.message,0)}finally{b.disabled=false}}$('area').onclick=()=>run(true);
+
+// === Enhanced hybrid image interpretation / OCR (version 1.1) ===
+function resetLocalPanels(){
+ for(const id of ['colorsTable','geometryOut','qualityOut','reportOut','metaOut'])$(id).textContent='بانتظار تحليل الصورة.';
+ $('colorbar').innerHTML='';$('hist').getContext('2d').clearRect(0,0,790,220);
+ for(const id of ['colors','spectrum','geometry','quality','metadata'])state(id,'بانتظار الصورة');
+}
+function resetAIPanels(){
+  const init={text:'بانتظار القراءة',numbers:'بانتظار OCR',people:'بانتظار الكشف',objects:'بانتظار الكشف',description:'بانتظار التصنيف'};
+  for(const [k,v] of Object.entries(init))state(k,v);
+  $('ocrTable').innerHTML='لم تُقرأ الكلمات بعد.';
+  $('numbersOut').textContent='لم تُستخرج الأرقام أو اللغات بعد.';
+  $('peopleOut').textContent='بانتظار كشف الأشخاص.';
+  $('objectsOut').textContent='بانتظار كشف الأشياء.';
+  $('descOut').textContent='بانتظار نتائج الكشف والتصنيف.';
+  $('classOut').textContent='بانتظار التصنيف العام.';
+  $('copytext').disabled=true;
+}
+$('showboxes').onchange=drawPreview;
+
+// A network indicator does not guarantee a given host/model is available.
+async function checkOnline(){
+  const online=navigator.onLine;
+  data.online=online;
+  const e=$('connection');e.className='status '+(online?'':'warn');
+  e.textContent=online?'● اتصال شبكة متاح — نجاح تنزيل النماذج يُفحص أثناء التحليل':'● الشبكة غير متاحة — التحليل المحلي يعمل';
+  return online;
+}
+$('check').onclick=checkOnline;
+window.addEventListener('online',checkOnline);
+window.addEventListener('offline',checkOnline);
+checkOnline();
+function permission(){
+ if($('mode').value==='offline')throw Error('تم اختيار الوضع المحلي فقط.');
+ if(!$('consent').checked)throw Error('فعّل موافقة تنزيل وتشغيل نماذج الذكاء الاصطناعي.');
+ // Already loaded libraries/models may still work if the network disappears.
+ if(!navigator.onLine && !window.Tesseract && !window.cocoSsd)throw Error('لا يوجد اتصال لتنزيل النماذج لأول مرة.');
+}
+async function script(url){
+ return new Promise((resolve,reject)=>{
+  const tag=document.createElement('script');tag.src=url;tag.async=true;
+  const timer=setTimeout(()=>{tag.remove();reject(Error('انتهت مهلة تنزيل مكتبة: '+url))},35000);
+  tag.onload=()=>{clearTimeout(timer);resolve()};
+  tag.onerror=()=>{clearTimeout(timer);tag.remove();reject(Error('تعذر الوصول إلى '+url))};
+  document.head.appendChild(tag);
+ });
+}
+async function loadLibrary(test,urls,description){
+ if(test())return;
+ const failures=[];
+ for(let u of urls){
+  try{await script(u);if(test())return;}catch(e){failures.push(e.message)}
+ }
+ throw Error('فشل تحميل '+description+'. '+failures.join(' ؛ '));
+}
+function guessLanguage(token,fullLine=''){
+ if(/^[0-9٠-٩۰-۹.,٫+−-]+$/u.test(token))return 'رقم (لا لغة)';
+ if(/[\u067E\u0686\u0698\u06AF\u06A9\u06CC\u06C0\u06C1]/u.test(token))return 'الفارسية — محتملة';
+ if(/[\u0600-\u06FF]/u.test(token)){
+  if(/[\u067E\u0686\u0698\u06AF\u06A9\u06CC]/u.test(fullLine))return 'الفارسية — من سياق السطر (محتملة)';
+  return 'العربية أو الفارسية — غير محسوم';
+ }
+ if(/[ÅÄÖåäö]/u.test(token))return 'الفنلندية أو السويدية — محتملة';
+ if(/[A-Za-z]/u.test(token))return 'لغة بحروف لاتينية — تحتاج سياقاً';
+ return 'غير محددة';
+}
+let worker=null,workerLanguages='';
+async function ocr(){
+ if(!data.img)return false;
+ const button=$('ocr');button.disabled=true;
+ try{
+  permission();
+  msg('تحضير OCR: مكتبة التعرف على النصوص وملفات اللغات…',12);
+  await loadLibrary(()=>!!window.Tesseract,[
+   'https://cdn.jsdelivr.net/npm/tesseract.js@5.1.1/dist/tesseract.min.js',
+   'https://unpkg.com/tesseract.js@5.1.1/dist/tesseract.min.js'
+  ],'Tesseract.js');
+  const langs=$('langs').value;
+  if(worker&&workerLanguages!==langs){await worker.terminate();worker=null;}
+  if(!worker){
+   worker=await Tesseract.createWorker(langs.split('+'),1,{logger:m=>{
+    if(typeof m.progress==='number')msg('قراءة النصوص: '+(m.status||'')+' '+Math.round(m.progress*100)+'%',Math.max(12,Math.round(m.progress*100)));
+   }});
+   workerLanguages=langs;
+  }
+  // Use a higher resolution than the color-analysis canvas where practical.
+  const input=canvasFromImage(data.img,2600);
+  const result=await worker.recognize(input);
+  const raw=(result?.data?.text||'').trim();
+  const entries=[];
+  for(const line of raw.split(/\n+/)){
+   const words=line.match(/[\p{L}\p{M}\u200c\u200d]+(?:['’ـ-][\p{L}\p{M}\u200c\u200d]+)*|[0-9٠-٩۰-۹]+(?:[.,٫][0-9٠-٩۰-۹]+)*/gu)||[];
+   for(const word of words)entries.push({word,type:/^[0-9٠-٩۰-۹]/.test(word)?'رقم':'كلمة',lang:guessLanguage(word,line)});
+  }
+  data.ocr={text:raw,words:entries,languageModels:langs.split('+'),confidence:result?.data?.confidence??null};
+  data.numbers=entries.filter(x=>x.type==='رقم').map(x=>x.word);
+  $('ocrTable').innerHTML=entries.length?tab(['الكلمة أو الرقم','النوع','اللغة المحتملة'],entries.map(x=>[esc(x.word),esc(x.type),esc(x.lang)])):'لم يجد محرك OCR كلمات مقروءة بوضوح في هذه الصورة.';
+  $('numbersOut').innerHTML='<b>الأرقام المستخرجة:</b> '+(data.numbers.length?data.numbers.map(esc).join('، '):'لا توجد أرقام مؤكدة')+'<p><b>النماذج المستعملة:</b> '+esc(langs.replaceAll('+',' + '))+'</p><p class="small">قد تتشابه العربية والفارسية في الحروف؛ تحديد اللغة من كلمة قصيرة قد لا يكون ممكناً بدقة.</p>';
+  state('text','تمت القراءة — '+entries.length+' إدخال');state('numbers','تم');$('copytext').disabled=!raw;
+  msg('اكتملت قراءة النصوص',100);updateReport();return true;
+ }catch(e){
+  state('text','فشلت القراءة');state('numbers','لم تتوفر نتائج');$('ocrTable').innerHTML='<p class="errorline">'+esc(e.message)+'</p>';
+  $('numbersOut').textContent='تعذر OCR؛ لن تُعرض أرقام مفترضة.';
+  msg('فشل OCR: '+e.message,0);return false;
+ }finally{button.disabled=false}
+}
+$('ocr').onclick=ocr;
+$('copytext').onclick=()=>navigator.clipboard?.writeText(data.ocr?.text||'');
+const clsArabic={person:'شخص',car:'سيارة',truck:'شاحنة',bus:'حافلة',bicycle:'دراجة هوائية',motorcycle:'دراجة نارية',cat:'قطة',dog:'كلب',bird:'طائر',horse:'حصان',chair:'كرسي',bottle:'زجاجة',book:'كتاب',laptop:'حاسوب محمول',cell_phone:'هاتف',tv:'تلفاز',potted_plant:'نبات',dining_table:'طاولة',sofa:'أريكة',train:'قطار',airplane:'طائرة',boat:'قارب',traffic_light:'إشارة مرور',backpack:'حقيبة ظهر',bench:'مقعد',clock:'ساعة',cup:'كوب',fork:'شوكة',knife:'سكين',spoon:'ملعقة',refrigerator:'ثلاجة',oven:'فرن',sink:'حوض',handbag:'حقيبة',umbrella:'مظلة',keyboard:'لوحة مفاتيح',mouse:'فأرة حاسوب',bed:'سرير',toilet:'مرحاض',teddy_bear:'دمية',orange:'برتقال',apple:'تفاحة',banana:'موز',sandwich:'شطيرة',pizza:'بيتزا',stop_sign:'علامة توقف',fire_hydrant:'صنبور إطفاء'};
+let detector=null,sceneModel=null;
+async function loadTF(){
+ await loadLibrary(()=>!!window.tf,[
+ 'https://cdn.jsdelivr.net/npm/@tensorflow/tfjs@4.22.0/dist/tf.min.js',
+ 'https://unpkg.com/@tensorflow/tfjs@4.22.0/dist/tf.min.js'
+ ],'TensorFlow.js');
+ try{await tf.ready()}catch(e){}
+}
+function normalizeBox(pred){
+ if(Array.isArray(pred.bbox)){let [x,y,w,h]=pred.bbox;return{xmin:x,ymin:y,xmax:x+w,ymax:y+h}}
+ if(pred.box){let b=pred.box;return{xmin:b.xmin,ymin:b.ymin,xmax:b.xmax,ymax:b.ymax}}
+ return null;
+}
+function buildDescription(){
+ const counts={};for(const z of (data.objects||[])){let k=z.label;counts[k]=(counts[k]||0)+1}
+ const chunks=[];
+ if(data.objects){
+  chunks.push(Object.keys(counts).length?'العناصر التي اكتشفها النموذج: '+Object.entries(counts).map(([key,n])=>n+' × '+(clsArabic[key.replaceAll(' ','_')]||key)).join('، ')+'.':'لم يرصد نموذج كشف العناصر شيئاً يتجاوز حد الثقة المطلوب؛ هذا لا يعني أن الصورة فارغة.');
+ }
+ if(data.classification?.length){let c=data.classification[0];chunks.push('التصنيف العام الأعلى احتمالاً وفق MobileNet: '+c.className+' ('+(c.probability*100).toFixed(1)+'%).');}
+ if(!chunks.length)chunks.push('لم تتوفر نتائج كافية لإنتاج وصف آلي.');
+ chunks.push('تنبيه: هذه استنتاجات احتمالية مبنية على فئات نماذج محدودة، وليست وصفاً دلالياً كاملاً لجميع تفاصيل الصورة.');
+ data.description=chunks.join(' ');$('descOut').textContent=data.description;state('description','تحديث من النماذج');
+}
+async function detect(){
+ if(!data.img)return false;
+ let button=$('detect');button.disabled=true;
+ let detectionOK=false,classificationOK=false,errors=[];
+ try{
+  permission();msg('تهيئة محرك الرؤية TensorFlow.js…',15);
+  await loadTF();
+  try{
+   await loadLibrary(()=>!!window.cocoSsd,[
+    'https://cdn.jsdelivr.net/npm/@tensorflow-models/coco-ssd@2.2.3/dist/coco-ssd.min.js',
+    'https://unpkg.com/@tensorflow-models/coco-ssd@2.2.3/dist/coco-ssd.min.js'
+   ],'COCO-SSD');
+   if(!detector){msg('تنزيل نموذج كشف الأشياء…',24);detector=await cocoSsd.load({base:'lite_mobilenet_v2'});}
+   msg('كشف الأشخاص والأشياء على الصورة…',55);
+   const predictions=await detector.detect(data.sourceCanvas,100,Number($('threshold').value));
+   data.objects=predictions.filter(p=>p.score>=Number($('threshold').value)).map(p=>({label:p.class||p.label,score:p.score,box:normalizeBox(p)}));
+   $('objectsOut').innerHTML=data.objects.length?tab(['العنصر المكتشف','الثقة','الموقع داخل صورة التحليل (px)'],data.objects.map(p=>[
+    esc(clsArabic[p.label.replaceAll(' ','_')]||p.label),Number(p.score*100).toFixed(1)+'%',esc(p.box?`(${p.box.xmin.toFixed(0)}, ${p.box.ymin.toFixed(0)}) — ${Math.round(p.box.xmax-p.box.xmin)}×${Math.round(p.box.ymax-p.box.ymin)}`:'—')
+   ])):'لم تُكتشف فئات معروفة فوق حد الثقة المحدد. يمكن تجربة عتبة 25%.';
+   const people=data.objects.filter(p=>p.label==='person');
+   $('peopleOut').textContent='عدد اكتشافات الأشخاص: '+people.length+' — استنتاج من صناديق نموذج الرؤية، وليس تحديداً للهوية أو الجنس.';
+   state('people','تم');state('objects','تم — '+data.objects.length+' عنصر');detectionOK=true;
+   drawPreview();
+  }catch(e){
+   errors.push('كشف الأشياء: '+e.message);state('objects','فشل الكشف');state('people','لم يُنفّذ');
+   $('objectsOut').innerHTML='<p class="errorline">'+esc(e.message)+'</p>';
+   $('peopleOut').textContent='لا توجد نتيجة موثوقة لعدد الأشخاص.';
+  }
+  try{
+   await loadLibrary(()=>!!window.mobilenet,[
+    'https://cdn.jsdelivr.net/npm/@tensorflow-models/mobilenet@2.1.1/dist/mobilenet.min.js',
+    'https://unpkg.com/@tensorflow-models/mobilenet@2.1.1/dist/mobilenet.min.js'
+   ],'MobileNet');
+   if(!sceneModel){msg('تنزيل نموذج تصنيف الصورة العام…',70);sceneModel=await mobilenet.load({version:2,alpha:0.5});}
+   data.classification=await sceneModel.classify(data.sourceCanvas,3);
+   $('classOut').innerHTML=tab(['تصنيف النموذج (بالإنجليزية)','احتمال النموذج'],data.classification.map(p=>[esc(p.className),Number(p.probability*100).toFixed(1)+'%']));
+   classificationOK=true;
+  }catch(e){errors.push('التصنيف العام: '+e.message);$('classOut').innerHTML='<p class="errorline">'+esc(e.message)+'</p>';}
+  buildDescription();updateReport();
+  msg(errors.length?'اكتمل جزء من التعرف على الصورة: '+errors.join(' ؛ '):'اكتمل كشف الأشياء والتصنيف العام',errors.length?70:100);
+  return detectionOK||classificationOK;
+ }catch(e){
+  state('objects','فشل الاتصال بالنماذج');state('people','لم يُنفذ');
+  $('objectsOut').innerHTML='<p class="errorline">'+esc(e.message)+'</p>';
+  $('classOut').textContent='تعذّر تشغيل التصنيف العام.';
+  msg('تعذر تشغيل محرك الرؤية: '+e.message,0);return false;
+ }finally{button.disabled=false;}
+}
+$('detect').onclick=detect;
+let fullRunning=false;
+async function fullAnalyze(){
+ if(!data.img||fullRunning)return;
+ fullRunning=true;$('analyze').disabled=true;
+ try{
+  msg('المرحلة 1/3: التحليل المحلي للألوان والجودة…',4);
+  await run(false);
+  if($('mode').value==='offline'){
+   msg('اكتمل التحليل المحلي. وضع الإنترنت معطّل اختيارياً؛ لا يمكن تشغيل النماذج الجديدة.',100);
+   return;
+  }
+  if(!$('consent').checked){
+   const alertText='اكتمل تحليل الألوان فقط. لتفعيل القراءة وكشف العناصر ضع علامة الموافقة على تنزيل وتشغيل النماذج، ثم أعد التحليل.';
+   $('ocrTable').textContent=alertText;$('objectsOut').textContent=alertText;
+   state('text','لم يُنفذ — تنقص الموافقة');state('objects','لم يُنفذ — تنقص الموافقة');
+   msg(alertText,100);return;
+  }
+  msg('المرحلة 2/3: قراءة الكلمات والأرقام بالعربية والفارسية وغيرها…',32);
+  const textOK=await ocr();
+  msg('المرحلة 3/3: التعرف على الأشخاص والأشياء والتصنيف العام…',65);
+  const visionOK=await detect();
+  const title=textOK&&visionOK?'اكتمل التحليل المحلي والتعرف الآلي.':textOK||visionOK?'اكتمل التحليل المحلي مع نجاح بعض وحدات الذكاء الاصطناعي.':'اكتمل تحليل الألوان فقط، وتعذّر تشغيل نماذج التعرف؛ راجع أسباب الفشل تحت العناوين.';
+  msg(title,textOK&&visionOK?100:80);updateReport();
+ }finally{fullRunning=false;$('analyze').disabled=false;}
+}
+$('analyze').onclick=fullAnalyze;
+
+function report(){return ['العين السحرية لتحليل الصور','الملف: '+(data.file?.name||'لا يوجد'),'الأبعاد: '+(data.img?data.img.naturalWidth+' × '+data.img.naturalHeight:'—'),'الألوان الرئيسية:',...data.colors.map(c=>c.name+' | '+c.hex+' | '+c.percent.toFixed(2)+'%'),'مؤشر السطوع: '+(data.quality?.brightness.toFixed(1)??'غير متوفر'),'مؤشر التباين: '+(data.quality?.contrast.toFixed(1)??'غير متوفر'),'النصوص: '+(data.ocr?.text||'لم تُحلل'),'الأرقام: '+(data.numbers?.join('، ')||'لم تُحلل'),'الأشياء: '+(data.objects?data.objects.map(x=>x.label).join('، '):'لم تُحلل'),'التصنيف العام: '+(data.classification?.map(p=>p.className+' '+(p.probability*100).toFixed(1)+'%').join('، ')||'غير متوفر'),'الوصف: '+(data.description||'غير متوفر')].join('\n')}function updateReport(){$('reportOut').textContent=report()}$('print').onclick=()=>window.print();$('copy').onclick=async()=>{try{await navigator.clipboard.writeText(report());msg('تم نسخ التقرير',100)}catch(e){msg('النسخ غير متاح في هذه البيئة')}};function download(name,mime,str){let blob=new Blob([str],{type:mime});let a=document.createElement('a'),url=URL.createObjectURL(blob);a.href=url;a.download=name;a.click();setTimeout(()=>URL.revokeObjectURL(url),10000)}$('json').onclick=()=>download('magic-eye-report.json','application/json;charset=utf-8',JSON.stringify({filename:data.file?.name,width:data.img?.naturalWidth,height:data.img?.naturalHeight,colors:data.colors,quality:data.quality,geometry:data.geometry,ocr:data.ocr,numbers:data.numbers,objects:data.objects,classification:data.classification,description:data.description},null,2));$('csv').onclick=()=>download('magic-eye-colors.csv','text/csv;charset=utf-8','\ufeffاللون,HEX,النسبة\r\n'+data.colors.map(x=>[x.name,x.hex,x.percent.toFixed(3)].map(v=>'"'+String(v).replaceAll('"','""')+'"').join(',')).join('\r\n'));
+$('reset').onclick=()=>{data.img=null;data.file=null;data.sourceCanvas=null;data.box=null;data.colors=[];data.hist=null;data.quality=null;data.geometry=null;data.ocr=null;data.numbers=null;data.objects=null;data.description=null;data.classification=null;$('file').value='';resetAIPanels();drawPreview();$('analyze').disabled=true;$('ocr').disabled=true;$('detect').disabled=true;$('area').disabled=true;$('copytext').disabled=true;for(let id of ['colorsTable','ocrTable','numbersOut','peopleOut','objectsOut','descOut','classOut','geometryOut','qualityOut','metaOut','reportOut','selection'])$(id).textContent='بانتظار تحميل صورة جديدة';$('colorbar').innerHTML='';$('hist').getContext('2d').clearRect(0,0,790,220);for(let id of ['colors','spectrum','text','numbers','people','objects','description','geometry','quality','metadata'])state(id,'بانتظار الصورة');msg('ارفع صورة للبدء.',0)};
+$('jump').innerHTML=[['colors','الألوان'],['spectrum','RGB'],['text','النصوص'],['numbers','الأرقام واللغات'],['people','الأشخاص'],['objects','الأشياء'],['description','الوصف'],['geometry','الهندسة'],['quality','الجودة'],['metadata','البيانات'],['report','التقرير']].map(([id,label])=>'<a href="#'+id+'">'+label+'</a>').join('');
+
+// Help dialog: accessible native modal, with close, Escape, and backdrop support.
+const helpDialog=$('helpDialog');
+const helpOpen=$('helpOpen');
+const helpClose=$('helpClose');
+helpOpen.addEventListener('click',()=>{
+  if(!helpDialog.open){helpDialog.showModal();helpDialog.scrollTop=0;helpClose.focus();}
+});
+helpClose.addEventListener('click',()=>helpDialog.close());
+helpDialog.addEventListener('click',e=>{if(e.target===helpDialog)helpDialog.close();});
+helpDialog.addEventListener('close',()=>helpOpen.focus());
+</script></body></html>
